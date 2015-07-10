@@ -28,7 +28,7 @@ class Currency
     /**
      * @var array
      */
-    private static $currencies => [
+    private static $currencies = array(
       'AED' => [
         'display_name' => 'UAE Dirham',
         'numeric_code' => 784,
@@ -1121,7 +1121,7 @@ class Currency
         'default_fraction_digits' => 2,
         'sub_unit' => 100,
       ]
-    ];
+    );
 
     /**
      * @var string
