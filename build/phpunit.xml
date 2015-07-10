@@ -2,9 +2,12 @@
 
 <phpunit backupGlobals="false"
          bootstrap="../src/autoload.php"
-         strict="true"
-         verbose="true"
-         timeoutForSmallTests="10">
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutTestsThatDoNotTestAnything="true"
+         beStrictAboutTodoAnnotatedTests="true"
+         checkForUnintentionallyCoveredCode="true"
+         forceCoversAnnotation="true"
+         verbose="true">
   <testsuites>
     <testsuite name="Money">
       <directory suffix="Test.php">../tests</directory>
