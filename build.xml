@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Money" default="build">
  <target name="build" depends="prepare,lint,phploc-ci,pdepend,phpmd-ci,phpcs-ci,phpcpd-ci,phpunit,phpdox"/>
-
+ <property name="tarfile"     value="${buildid}.tar.gz" />
+ <property name="distfile"    value="dist/${tarfile}" />
+ <fileset id="money.tar.gz" dir=".">
+  <include name="src/**"/>
+ </fileset>
  <target name="clean" unless="clean.done" description="Cleanup build artifacts">
   <delete dir="${basedir}/build/api"/>
   <delete dir="${basedir}/build/coverage"/>
@@ -136,6 +140,19 @@
 
  <target name="phpdox" depends="phploc-ci,phpcs-ci,phpmd-ci" description="Generate API documentation using phpDox">
   <exec executable="${basedir}/build/tools/phpdox.phar" dir="${basedir}/build"/>
+ </target>
+ <target name="check" description="Check variables" >
+  <fail unless="buildid" message="buildid not defined!" />
+  <delete dir="dist" failonerror="false" />
+  <mkdir dir="dist" />
+ </target>
+
+ <target name="tar" depends="check" description="Create tar file for release">
+  <echo msg="Creating distribution tar for ${buildid}"/>
+  <delete file="${distfile}" failonerror="false"/>
+  <tar destfile="${distfile}" compression="gzip">
+   <fileset refid="money.tar.gz"/>
+  </tar>
  </target>
 </project>
 
